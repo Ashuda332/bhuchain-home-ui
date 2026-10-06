@@ -26,7 +26,7 @@ npm run preview  # serve the production build locally
 .claude/skills/        Design skills: Anthropic frontend-design (Apache-2.0), ui-ux-pro-max (MIT)
 public/brand/          Official logo (reference) and the wordmark mask cut from it
 src/
-  components/   Logo, Button, Container, SmoothScroll (Lenis), PixelField (cursor pixel bars),
+  components/   Logo, Button, Container, SmoothScroll (Lenis), DotField (dot-matrix background),
                 PixelWave (dark equalizer), Decode (scrambling numbers), Illustrations (animated line art)
   sections/     Navbar, Hero, Capabilities, Features, Stats, Platform, Vision, Updates, CtaBand, Footer
   App.jsx       Assembles the sections
@@ -49,7 +49,9 @@ silver for highlights and pixel effects.
 - **Type:** Geist (everything) + Geist Mono (small labels).
 - **Motion:**
   - Lenis smooth scrolling, with anchor links that glide to their section.
-  - Hero and CTA band: pixel "candle" bars flicker in around the cursor.
+  - Hero and CTA band: a precise dot-matrix grid. It boots up once in a ripple, a soft trailing
+    spotlight follows the cursor, and every few seconds a 3×3 "block" lights up in the side
+    margins and links to the previous one. The centre stays quiet so text is always readable.
   - Stats decode from random glyphs when they scroll into view.
   - Platform illustrations each loop one small animation.
   - Vision section: segmented blue equalizer that brightens near the cursor.

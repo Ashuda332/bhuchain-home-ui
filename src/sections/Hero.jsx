@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import Button, { Chevron, Square } from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
-import PixelField from "../components/PixelField.jsx";
+import DotField from "../components/DotField.jsx";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -15,7 +15,8 @@ export default function Hero() {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden">
-      <PixelField className="-z-10" ambient={1.6} />
+      <DotField className="-z-10" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-bg" />
       <Container className="flex min-h-[72svh] flex-col items-center justify-center py-24 text-center sm:py-32">
         <motion.h1 id="hero-title" {...fadeUp(0.05)} className="max-w-4xl text-[2.75rem] leading-[1.02] text-ink sm:text-7xl lg:text-[5.25rem]">
           The blockchain for <br className="hidden sm:block" />
