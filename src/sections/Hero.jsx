@@ -11,6 +11,7 @@ import BrandEmblem from "../components/BrandEmblem.jsx";
 import Button from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
 import ParticleField from "../components/ParticleField.jsx";
+import GoldDotSweep from "../components/GoldDotSweep.jsx";
 import { IconArrow } from "../components/Icons.jsx";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -18,6 +19,7 @@ const INTRO = 2.1; // seconds until the emblem intro is mostly done
 
 export default function Hero() {
   const ref = useRef(null);
+  const emblemRef = useRef(null);
   const reduce = useReducedMotion();
 
   // Scroll: emblem drifts back and fades as you leave the hero.
@@ -76,6 +78,7 @@ export default function Hero() {
           />
         </div>
         <ParticleField className="absolute inset-0" />
+        <GoldDotSweep anchorRef={emblemRef} className="absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
       </div>
 
@@ -95,7 +98,7 @@ export default function Hero() {
           style={reduce ? undefined : { scale: emblemScale, y: emblemY, opacity: emblemOpacity }}
           className="mt-6 w-full max-w-[720px] [perspective:1200px]"
         >
-          <motion.div style={reduce ? undefined : { rotateX: rotX, rotateY: rotY }}>
+          <motion.div ref={emblemRef} style={reduce ? undefined : { rotateX: rotX, rotateY: rotY }}>
             <BrandEmblem className="w-full" delay={0.15} />
           </motion.div>
           {/* The emblem is decorative; this is its accessible name. */}
