@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { blockHash, shortHash } from "../lib/hash.js";
+import { toOdia } from "../lib/odia.js";
 
 /**
  * Hero scene: an isometric map of land plots (with the Mahanadi running through).
@@ -16,8 +17,6 @@ const CYCLE = 3600; // ms per plot
 const BASE = [6, 9, 12]; // resting heights (px) for fields
 const LIFT = 64;
 
-const ODIA_DIGITS = "୦୧୨୩୪୫୬୭୮୯";
-export const toOdia = (n) => String(n).replace(/\d/g, (d) => ODIA_DIGITS[d]);
 
 // Deterministic "random" so the map looks the same on every load.
 const rand = (i) => {

@@ -5,9 +5,9 @@ const groups = [
   {
     title: "Product",
     links: [
-      { href: "#how-it-works", label: "How it works" },
-      { href: "#features", label: "Features" },
-      { href: "#fraud-prevention", label: "Fraud prevention" },
+      { href: "#chain", label: "How it works" },
+      { href: "#fraud-lab", label: "Fraud lab" },
+      { href: "#bhu-id", label: "BHU-ID" },
       { href: "#pilot", label: "Pilot" },
     ],
   },

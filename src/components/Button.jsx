@@ -1,5 +1,5 @@
 const base =
-  "group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold " +
+  "group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden min-h-11 rounded-full px-6 py-3 text-sm font-semibold " +
   "transition-[background-position,color,border-color,transform,box-shadow] duration-500 " +
   "active:scale-[0.98] whitespace-nowrap";
 

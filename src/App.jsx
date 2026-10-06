@@ -1,12 +1,9 @@
 import { MotionConfig } from "motion/react";
 import Navbar from "./sections/Navbar.jsx";
 import Hero from "./sections/Hero.jsx";
-import Statement from "./sections/Statement.jsx";
-import LedgerStrip from "./sections/LedgerStrip.jsx";
-import TamperDemo from "./sections/TamperDemo.jsx";
-import Problem from "./sections/Problem.jsx";
-import HowItWorks from "./sections/HowItWorks.jsx";
-import Features from "./sections/Features.jsx";
+import ChainOfTitle from "./sections/ChainOfTitle.jsx";
+import FraudLab from "./sections/FraudLab.jsx";
+import BhuIdAnatomy from "./sections/BhuIdAnatomy.jsx";
 import Pilot from "./sections/Pilot.jsx";
 import FinalCta from "./sections/FinalCta.jsx";
 import Footer from "./sections/Footer.jsx";
@@ -18,12 +15,9 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <LedgerStrip />
-        <Statement />
-        <Problem />
-        <HowItWorks />
-        <TamperDemo />
-        <Features />
+        <ChainOfTitle />
+        <FraudLab />
+        <BhuIdAnatomy />
         <Pilot />
         <FinalCta />
       </main>
