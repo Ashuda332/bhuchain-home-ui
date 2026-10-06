@@ -1,11 +1,6 @@
 # BhuChain — Home UI
 
-Landing page for **BhuChain**, a blockchain-based land registry and real estate platform for Odisha
-(pilot cities: Cuttack and Bhubaneswar).
-
-BhuChain gives every land parcel a **BHU-ID** (an independent evidence layer), runs **two-level
-verification** before anything is recorded, and keeps **tamper-proof land records** to prevent fraud
-such as fake owners and double sales.
+Landing page for **BhuChain**, a blockchain platform for verifiable, tamper-proof records.
 
 This repo is **static front-end only**: no backend, wallet, API or contract calls.
 
@@ -14,6 +9,7 @@ This repo is **static front-end only**: no backend, wallet, API or contract call
 - [Vite](https://vite.dev) + React
 - [Tailwind CSS v4](https://tailwindcss.com) (via `@tailwindcss/vite`)
 - [Motion](https://motion.dev) for animation (`import { motion } from "motion/react"`)
+- [Lenis](https://lenis.darkroom.engineering) for smooth scrolling (~3 KB)
 
 ## Getting started
 
@@ -27,62 +23,48 @@ npm run preview  # serve the production build locally
 ## Project structure
 
 ```
-.claude/skills/
-  frontend-design/     Anthropic's official design skill (github.com/anthropics/skills, Apache-2.0)
-  ui-ux-pro-max/       UI/UX Pro Max design database + search script (github.com/nextlevelbuilder/ui-ux-pro-max-skill, MIT)
-public/brand/
-  logo-original.webp   Official BhuChain logo (reference)
-  wordmark-mask.png    "BHUCHAIN" letterforms cut from the logo, used as a CSS mask
-  shri-mask.png        The श्री mark cut from the logo, used as a CSS mask
+.claude/skills/        Design skills: Anthropic frontend-design (Apache-2.0), ui-ux-pro-max (MIT)
+public/brand/          Official logo (reference) and the wordmark mask cut from it
 src/
-  components/   Logo, LandLedger (3D hero map), Button, Container, Reveal, ThemeToggle, Icons
-  lib/          hash.js (SHA-256 via Web Crypto), odia.js (Odia numerals)
-  sections/     Navbar, Hero, ChainOfTitle, FraudLab, BhuIdAnatomy, Pilot, FinalCta, Footer
+  components/   Logo, Button, Container, SmoothScroll (Lenis), PixelField (cursor pixel bars),
+                PixelWave (dark equalizer), Decode (scrambling numbers), Illustrations (animated line art)
+  sections/     Navbar, Hero, Capabilities, Features, Stats, Platform, Vision, Updates, CtaBand, Footer
   App.jsx       Assembles the sections
-  index.css     Tailwind import + design tokens (colours, gradients, fonts) for dark and light mode
+  index.css     Tailwind import + design tokens
 ```
 
-## Design: "Pattachitra night"
+## Design
 
-The idea: **Odisha's land is the ledger.** Every visual comes from the subject (plots, the
-Mahanadi, Odia script, registry stamps) rather than generic crypto imagery.
+Clean white canvas, near-black type, one electric-blue action colour, and the logo's gold and
+silver for highlights and pixel effects.
 
 | Token | Hex | Use |
 |---|---|---|
-| Indigo night | `#0C0F24` | Dark background (Pattachitra indigo) |
-| Conch white | `#F2EEE6` | Text on dark |
-| Logo gold | `#C29E61` (shadow `#9E7E49`, highlight `#EDDEB1`) | Brand, blocks, buttons. Sampled from the logo |
-| Logo silver | `#9D9996` (`#4D4B4A` to `#DAD2CE`) | Secondary data. Sampled from the logo |
-| Paddy green | `#5FD39A` | Only verified / accepted states |
-| Vermilion | `#FF6B4A` | Only fraud / rejected states |
+| Ink | `#0A0B0D` | Text, dark section |
+| Electric blue | `#1F3DFF` | Buttons, links, pixels, CTA band |
+| Logo gold | `#C29E61` | Pixel accents, illustration highlights (sampled from the logo) |
+| Logo silver | `#9D9996` | Pixel accents (sampled from the logo) |
+| Band grey | `#F6F6F8` | Announcement bar, stats band |
 
-- **Type:** Bricolage Grotesque (headlines), Geist (body), Geist Mono (hashes only), Noto Sans
-  Oriya (Odia words and numerals).
-- **Hero:** an isometric 3D map of plots with the Mahanadi running through it. A survey line sweeps
-  the map, one plot rises into a gold block and is appended to the ledger beside it; sealed plots
-  keep a gold edge, so the map fills up over time. Plot numbers use Odia numerals.
-- **How a plot becomes a block:** on desktop the section pins while a plot's six-block history
-  slides past, linked by real SHA-256 `prev` → `hash` values. On mobile it's a vertical chain.
-- **Fraud lab:** play the fraudster. Double sale, fake owner and record tampering each end in an
-  "Accepted" / "Rejected" registry stamp; tampering recomputes real SHA-256 hashes live.
-- **BHU-ID anatomy:** a sample certificate; hovering or focusing a feature highlights its part.
-- **Pilot:** Cuttack and Bhubaneswar in large type with Odia names and coordinates.
-- **Theme:** dark (default) and light, toggle in the navbar, choice saved in `localStorage`.
+- **Type:** Geist (everything) + Geist Mono (small labels).
+- **Motion:**
+  - Lenis smooth scrolling, with anchor links that glide to their section.
+  - Hero and CTA band: pixel "candle" bars flicker in around the cursor.
+  - Stats decode from random glyphs when they scroll into view.
+  - Platform illustrations each loop one small animation.
+  - Vision section: segmented blue equalizer that brightens near the cursor.
+  - Capabilities marquee; animated navbar dropdowns.
+- Everything respects `prefers-reduced-motion` (Lenis, canvases and loops switch off).
 
 ## Customising
 
-- **Colours:** CSS variables at the top of `src/index.css` (`:root` light, `.dark` dark), including
-  the hero map's field and river colours.
-- **Logo:** `src/components/Logo.jsx` (navbar, footer, certificate). When an official vector logo
-  exists, export it to `/public/logo.svg` and swap it in `Logo.jsx`.
-- **Design skills:** e.g.
-  `python3 .claude/skills/ui-ux-pro-max/scripts/search.py "fintech blockchain" --domain color`.
-- **Placeholders:** any number or claim that still needs a real, sourced value is shown as
-  `[placeholder]`. Plots, people (Owner A, Buyer B, Person X) and hashes are sample data.
+- **Colours:** CSS variables at the top of `src/index.css`.
+- **Logo:** `src/components/Logo.jsx`. When an official vector logo exists, export it to
+  `/public/logo.svg` and swap it in `Logo.jsx`.
+- **Content:** product copy is generic for now. Anything that still needs real content is marked
+  `[placeholder]` or `[date]`. There are no partner logos or market statistics on purpose.
 
-## Accessibility & motion
+## Accessibility
 
-Semantic landmarks, skip link, visible focus rings, 44px touch targets, keyboard-operable tabs
-(arrow keys), live status messages in the fraud lab, and decorative 3D/SVG hidden from screen
-readers. All animation respects `prefers-reduced-motion`: the map shows one sealed plot without
-moving, the pinned chain becomes a plain vertical list, and loops are turned off.
+Semantic landmarks, skip link, visible focus rings, 44px touch targets, keyboard-operable dropdowns
+(Escape closes), labelled icon buttons, and decorative canvases/SVGs hidden from screen readers.

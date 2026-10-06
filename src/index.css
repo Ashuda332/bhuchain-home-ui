@@ -1,116 +1,62 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: <html class="dark"> */
-@custom-variant dark (&:where(.dark, .dark *));
-
 /*
- * BhuChain design tokens — "Pattachitra night".
- * Palette drawn from Odisha's Pattachitra pigments (indigo, conch white,
- * vermilion) plus the official logo's gold and silver.
- *
- *   Logo gold    #9E7E49 shadow · #C29E61 mid · #EDDEB1 highlight (sampled from the logo)
- *   Logo silver  #4D4B4A shadow · #9D9996 mid · #DAD2CE highlight (sampled from the logo)
- *   Indigo night #0C0F24   Conch white #F2EEE6
- *   Paddy green  — verified / sealed states only
- *   Vermilion    — fraud / rejected states only
- *
- * Tailwind utilities (bg-surface, text-ink, text-accent, text-verify, ...) come
- * from these in the @theme block below. Change a value here to retheme the site.
+ * BhuChain design tokens.
+ * Clean white canvas, near-black ink, one electric-blue action colour, and the
+ * logo's gold and silver (sampled from public/brand/logo-original.webp) used for
+ * the pixel effects and highlights. Change a value here to retheme the site.
  */
 :root {
-  --c-bg: #f1f0f5;
-  --c-surface: #ffffff;
-  --c-surface-2: #e7e6ef;
-  --c-ink: #12163a;          /* indigo ink */
-  --c-muted: #555a7a;
-  --c-line: #d8d7e3;
-  --c-accent: #87672f;       /* logo gold, darkened for text on light */
-  --c-accent-ink: #1a1408;
-  --c-silver: #6f6b68;
-  --c-verify: #1d7f52;
-  --c-verify-soft: #dcf1e5;
-  --c-warn: #c2391b;
-  --c-warn-soft: #fbe3dc;
-  --c-night: #0c0f24;
-  --c-sand: #f2eee6;
-  --c-glow: rgb(194 158 97 / 0.28);
-  /* land tiles in the hero map */
-  --c-field-1: #cfd8c4;
-  --c-field-2: #c3cfb5;
-  --c-field-3: #d9d1b8;
-  --c-water: #b9c6dc;
-  --c-field-edge: rgb(18 22 58 / 0.18);
-  --c-field-side: #a6ad9b;
+  --c-bg: #ffffff;
+  --c-band: #f6f6f8;          /* grey bands */
+  --c-ink: #0a0b0d;
+  --c-muted: #5b616e;
+  --c-line: #e7e7ec;
+  --c-primary: #1f3dff;       /* electric blue: buttons, links, pixels */
+  --c-primary-ink: #ffffff;
+  --c-primary-soft: #e9ecff;
+  --c-gold: #c29e61;          /* logo gold */
+  --c-gold-hi: #eddeb1;
+  --c-silver: #9d9996;        /* logo silver */
+  --c-night: #0a0b0d;         /* dark section */
+  --c-green: #3ddc84;         /* status dot only */
 
-  --shadow-soft: 0 1px 2px rgb(18 22 58 / 0.06), 0 14px 36px -18px rgb(18 22 58 / 0.28);
-  --grain-opacity: 0.035;
-  color-scheme: light;
-}
-
-.dark {
-  --c-bg: #0c0f24;           /* indigo night */
-  --c-surface: #131735;
-  --c-surface-2: #1a1f45;
-  --c-ink: #f2eee6;          /* conch white */
-  --c-muted: #a3a7c4;
-  --c-line: #272d5c;
-  --c-accent: #caaa75;       /* logo gold */
-  --c-accent-ink: #1a1408;
-  --c-silver: #bbb7b4;
-  --c-verify: #5fd39a;
-  --c-verify-soft: #12302c;
-  --c-warn: #ff6b4a;
-  --c-warn-soft: #3a1620;
-  --c-night: #080a1a;
-  --c-sand: #f2eee6;
-  --c-glow: rgb(194 158 97 / 0.24);
-  --c-field-1: #22403f;      /* paddy at night */
-  --c-field-2: #2a3a52;
-  --c-field-3: #3a3646;      /* fallow */
-  --c-water: #1f3a8a;        /* Mahanadi */
-  --c-field-edge: rgb(194 158 97 / 0.28);
-  --c-field-side: #141a3a;
-
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 20px 48px -24px rgb(0 0 0 / 0.9);
-  --grain-opacity: 0.05;
-  color-scheme: dark;
-}
-
-:root {
   --gold-grad: linear-gradient(110deg, #9e7e49 0%, #b8985e 24%, #dcc595 42%, #be9a60 58%, #c4af89 76%, #a68149 100%);
-  --gold-face: linear-gradient(135deg, #eddeb1 0%, #c29e61 45%, #9e7e49 100%);
-  --silver-grad: linear-gradient(110deg, #4d4b4a 0%, #9d9996 30%, #dad2ce 48%, #908c89 68%, #666261 100%);
 }
 
 @theme inline {
   --color-bg: var(--c-bg);
-  --color-surface: var(--c-surface);
-  --color-surface-2: var(--c-surface-2);
+  --color-band: var(--c-band);
   --color-ink: var(--c-ink);
   --color-muted: var(--c-muted);
   --color-line: var(--c-line);
-  --color-accent: var(--c-accent);
-  --color-accent-ink: var(--c-accent-ink);
+  --color-primary: var(--c-primary);
+  --color-primary-ink: var(--c-primary-ink);
+  --color-primary-soft: var(--c-primary-soft);
+  --color-gold: var(--c-gold);
+  --color-gold-hi: var(--c-gold-hi);
   --color-silver: var(--c-silver);
-  --color-verify: var(--c-verify);
-  --color-verify-soft: var(--c-verify-soft);
-  --color-warn: var(--c-warn);
-  --color-warn-soft: var(--c-warn-soft);
   --color-night: var(--c-night);
-  --color-sand: var(--c-sand);
+  --color-green: var(--c-green);
 
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-odia: "Noto Sans Oriya", "Kalinga", "Odia Sangam MN", sans-serif;
-
-  --shadow-soft: var(--shadow-soft);
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    /* Lenis handles smooth scrolling; keep native behaviour predictable. */
+    scroll-behavior: auto;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   body {
@@ -122,25 +68,8 @@
     overflow-x: clip;
   }
 
-  /* Subtle film grain over the whole page (inline SVG, no image request). */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
-
-  #root {
-    position: relative;
-    z-index: 1;
-  }
-
   h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.035em;
     text-wrap: balance;
   }
@@ -150,51 +79,39 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--c-accent);
+    outline: 2px solid var(--c-primary);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   ::selection {
-    background: var(--c-accent);
-    color: var(--c-accent-ink);
+    background: var(--c-primary);
+    color: #fff;
   }
 }
 
 @layer utilities {
-  .text-gold {
-    background-image: var(--gold-grad);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .bg-gold {
-    background-image: var(--gold-grad);
-    background-size: 200% 100%;
-  }
-  .font-odia {
-    font-family: var(--font-odia);
-  }
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  /* Brand-shape masks cut from the official logo (see src/components/Logo.jsx). */
   .mask-wordmark {
     -webkit-mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
     mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
   }
-  .mask-shri {
-    -webkit-mask: url("/brand/shri-mask.png") center / contain no-repeat;
-    mask: url("/brand/shri-mask.png") center / contain no-repeat;
+  .bg-gold {
+    background-image: var(--gold-grad);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
