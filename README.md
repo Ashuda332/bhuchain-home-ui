@@ -1,6 +1,11 @@
 # BhuChain — Home UI
 
-Landing page for **BhuChain**, a blockchain platform for verifiable, tamper-proof records.
+Landing page for **BhuChain**, a blockchain-based land registry and real estate platform for Odisha
+(pilot cities: Cuttack and Bhubaneswar).
+
+BhuChain gives every land parcel a **BHU-ID** (an independent evidence layer), runs **two-level
+verification** before anything is recorded, and keeps **tamper-proof land records** to prevent fraud
+such as fake owners and double sales.
 
 This repo is **static front-end only**: no backend, wallet, API or contract calls.
 
@@ -9,7 +14,6 @@ This repo is **static front-end only**: no backend, wallet, API or contract call
 - [Vite](https://vite.dev) + React
 - [Tailwind CSS v4](https://tailwindcss.com) (via `@tailwindcss/vite`)
 - [Motion](https://motion.dev) for animation (`import { motion } from "motion/react"`)
-- [Lenis](https://lenis.darkroom.engineering) for smooth scrolling (~3 KB)
 
 ## Getting started
 
@@ -23,50 +27,43 @@ npm run preview  # serve the production build locally
 ## Project structure
 
 ```
-.claude/skills/        Design skills: Anthropic frontend-design (Apache-2.0), ui-ux-pro-max (MIT)
-public/brand/          Official logo (reference) and the wordmark mask cut from it
+public/brand/
+  logo-original.webp   Official BhuChain logo (reference)
+  wordmark-mask.png    "BHUCHAIN" letterforms cut from the logo, used as a CSS mask
+  shri-mask.png        The श्री mark cut from the logo, used as a CSS mask
 src/
-  components/   Logo, Button, Container, SmoothScroll (Lenis), DotField (dot-matrix background),
-                PixelWave (dark equalizer), Decode (scrambling numbers), Illustrations (animated line art)
-  sections/     Navbar, Hero, Capabilities, Features, Stats, Platform, Vision, Updates, CtaBand, Footer
+  components/   Logo, BrandEmblem (animated hero logo), ParticleField, GlowCard,
+                WordReveal, Button, Container, Reveal, SectionHeading, ThemeToggle, Icons
+  sections/     Navbar, Hero, Statement, Problem, HowItWorks, Features, Pilot, FinalCta, Footer
   App.jsx       Assembles the sections
-  index.css     Tailwind import + design tokens
+  index.css     Tailwind import + design tokens (colours, gradients, fonts) for dark and light mode
 ```
 
 ## Design
 
-Clean white canvas, near-black type, one electric-blue action colour, and the logo's gold and
-silver for highlights and pixel effects.
-
-| Token | Hex | Use |
-|---|---|---|
-| Ink | `#0A0B0D` | Text, dark section |
-| Electric blue | `#1F3DFF` | Buttons, links, pixels, CTA band |
-| Logo gold | `#C29E61` | Pixel accents, illustration highlights (sampled from the logo) |
-| Logo silver | `#9D9996` | Pixel accents (sampled from the logo) |
-| Band grey | `#F6F6F8` | Announcement bar, stats band |
-
-- **Type:** Geist (everything) + Geist Mono (small labels).
-- **Motion:**
-  - Lenis smooth scrolling, with anchor links that glide to their section.
-  - Hero and CTA band: a precise dot-matrix grid. It boots up once in a ripple, a soft trailing
-    spotlight follows the cursor, and every few seconds a 3×3 "block" lights up in the side
-    margins and links to the previous one. The centre stays quiet so text is always readable.
-  - Stats decode from random glyphs when they scroll into view.
-  - Platform illustrations each loop one small animation.
-  - Vision section: segmented blue equalizer that brightens near the cursor.
-  - Capabilities marquee; animated navbar dropdowns.
-- Everything respects `prefers-reduced-motion` (Lenis, canvases and loops switch off).
+- **Brand:** gold + silver interlocked rings from the logo. The rings are redrawn as SVG so they can
+  animate; the wordmark and श्री use the real logo shapes as masks, filled with a CSS gold gradient.
+- **Hero:** the rings draw themselves in, श्री fades in, the wordmark wipes in, then a light sheen
+  keeps orbiting the rings. Gold dust particles drift behind, the logo tilts with the mouse, and it
+  drifts back and fades as you scroll away.
+- **Scroll motion:** statement text lights up word by word; "How it works" has a sticky record card
+  that advances as you scroll through the steps; cards have a gold spotlight that follows the cursor.
+- **Theme:** dark (default) and light, toggle in the navbar, choice saved in `localStorage`.
 
 ## Customising
 
-- **Colours:** CSS variables at the top of `src/index.css`.
-- **Logo:** `src/components/Logo.jsx`. When an official vector logo exists, export it to
-  `/public/logo.svg` and swap it in `Logo.jsx`.
-- **Content:** product copy is generic for now. Anything that still needs real content is marked
-  `[placeholder]` or `[date]`. There are no partner logos or market statistics on purpose.
+- **Colours:** all brand colours are CSS variables at the top of `src/index.css` (`:root` for light,
+  `.dark` for dark), plus `--gold-grad` / `--silver-grad`. Tailwind utilities such as `bg-surface`,
+  `text-ink`, `text-accent` are generated from them.
+- **Fonts:** Sora (headings), Instrument Serif italic (gold accent words) and Inter (body) from
+  Google Fonts, loaded in `index.html`, with fallback stacks in `src/index.css`.
+- **Logo:** `src/components/Logo.jsx` (navbar + footer) and `src/components/BrandEmblem.jsx` (hero).
+  When an official vector logo exists, export it to `/public/logo.svg` and swap it in `Logo.jsx`.
+- **Placeholders:** any number or claim that still needs a real, sourced value is shown as
+  `[placeholder]`. Search the code for `placeholder` before launch.
 
-## Accessibility
+## Accessibility & motion
 
-Semantic landmarks, skip link, visible focus rings, 44px touch targets, keyboard-operable dropdowns
-(Escape closes), labelled icon buttons, and decorative canvases/SVGs hidden from screen readers.
+Semantic landmarks, skip link, visible focus rings, labelled controls, and decorative SVG/canvas
+hidden from screen readers. All animation respects `prefers-reduced-motion`: the logo appears
+fully drawn, particles freeze, and loops and scroll effects are turned off.

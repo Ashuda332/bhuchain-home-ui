@@ -25,14 +25,14 @@ export function RingsMark({ className = "" }) {
     <svg viewBox="0 0 44 32" className={className} aria-hidden="true" fill="none">
       <defs>
         <linearGradient id="lm-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#eddeb1" />
-          <stop offset=".5" stopColor="#c29e61" />
-          <stop offset="1" stopColor="#8f7240" />
+          <stop offset="0" stopColor="#f3e2b4" />
+          <stop offset=".5" stopColor="#c49a4f" />
+          <stop offset="1" stopColor="#8a6527" />
         </linearGradient>
         <linearGradient id="lm-silver" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#dad2ce" />
-          <stop offset=".6" stopColor="#9d9996" />
-          <stop offset="1" stopColor="#4d4b4a" />
+          <stop offset="0" stopColor="#f0eeeb" />
+          <stop offset=".6" stopColor="#9a9895" />
+          <stop offset="1" stopColor="#5c5a58" />
         </linearGradient>
       </defs>
       <circle cx="17" cy="16" r="12" stroke="url(#lm-silver)" strokeWidth="3.2" />

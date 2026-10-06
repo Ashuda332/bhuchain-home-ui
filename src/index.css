@@ -1,62 +1,90 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
- * BhuChain design tokens.
- * Clean white canvas, near-black ink, one electric-blue action colour, and the
- * logo's gold and silver (sampled from public/brand/logo-original.webp) used for
- * the pixel effects and highlights. Change a value here to retheme the site.
+ * Design tokens, taken from the BhuChain logo (gold + silver interlocked rings).
+ * All brand colours live here as CSS variables so they can be tuned in one place.
+ * Tailwind utilities (bg-surface, text-ink, text-accent, ...) are generated from
+ * them in the @theme block below.
  */
 :root {
-  --c-bg: #ffffff;
-  --c-band: #f6f6f8;          /* grey bands */
-  --c-ink: #0a0b0d;
-  --c-muted: #5b616e;
-  --c-line: #e7e7ec;
-  --c-primary: #1f3dff;       /* electric blue: buttons, links, pixels */
-  --c-primary-ink: #ffffff;
-  --c-primary-soft: #e9ecff;
-  --c-gold: #c29e61;          /* logo gold */
-  --c-gold-hi: #eddeb1;
-  --c-silver: #9d9996;        /* logo silver */
-  --c-night: #0a0b0d;         /* dark section */
-  --c-green: #3ddc84;         /* status dot only */
+  --c-bg: #f8f5ef;          /* ivory */
+  --c-surface: #fffdf9;
+  --c-surface-2: #f1ece2;
+  --c-ink: #17130d;
+  --c-muted: #5f574b;
+  --c-line: #e3dacb;
+  --c-accent: #8a6a2b;      /* deep gold — readable as text on ivory */
+  --c-accent-ink: #1a1408;  /* text on gold buttons */
+  --c-accent-soft: #f1e6cc;
+  --c-silver: #77746f;
+  --c-warn: #b4441c;
+  --c-warn-soft: #f8e4da;
+  --c-night: #0c0a07;       /* always-dark bands (CTA, footer) */
+  --c-night-2: #16130e;
+  --c-sand: #f4efe6;        /* text on night */
+  --c-glow: rgb(212 176 106 / 0.28);
 
-  --gold-grad: linear-gradient(110deg, #9e7e49 0%, #b8985e 24%, #dcc595 42%, #be9a60 58%, #c4af89 76%, #a68149 100%);
+  --gold-grad: linear-gradient(110deg, #9c7535 0%, #d9b873 22%, #f5e6bd 38%, #c49a4f 55%, #e9d39a 72%, #a9823f 100%);
+  --silver-grad: linear-gradient(110deg, #6d6b68 0%, #c9c7c3 35%, #f0eeeb 50%, #9a9895 70%, #5c5a58 100%);
+
+  --shadow-soft: 0 1px 2px rgb(23 19 13 / 0.04), 0 10px 30px -14px rgb(23 19 13 / 0.18);
+  --grain-opacity: 0.045;
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg: #0a0907;          /* warm black */
+  --c-surface: #12100c;
+  --c-surface-2: #1a1712;
+  --c-ink: #f4efe6;
+  --c-muted: #a69e90;
+  --c-line: #2a251d;
+  --c-accent: #d9b873;      /* bright gold */
+  --c-accent-ink: #1a1408;
+  --c-accent-soft: #2a2213;
+  --c-silver: #b9b7b3;
+  --c-warn: #f08a5d;
+  --c-warn-soft: #2d1a12;
+  --c-night: #060504;
+  --c-night-2: #12100c;
+  --c-sand: #f4efe6;
+  --c-glow: rgb(217 184 115 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -20px rgb(0 0 0 / 0.8);
+  --grain-opacity: 0.06;
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-bg: var(--c-bg);
-  --color-band: var(--c-band);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
   --color-ink: var(--c-ink);
   --color-muted: var(--c-muted);
   --color-line: var(--c-line);
-  --color-primary: var(--c-primary);
-  --color-primary-ink: var(--c-primary-ink);
-  --color-primary-soft: var(--c-primary-soft);
-  --color-gold: var(--c-gold);
-  --color-gold-hi: var(--c-gold-hi);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-soft: var(--c-accent-soft);
   --color-silver: var(--c-silver);
+  --color-warn: var(--c-warn);
+  --color-warn-soft: var(--c-warn-soft);
   --color-night: var(--c-night);
-  --color-green: var(--c-green);
+  --color-night-2: var(--c-night-2);
+  --color-sand: var(--c-sand);
 
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+
+  --shadow-soft: var(--shadow-soft);
 }
 
 @layer base {
   html {
-    /* Lenis handles smooth scrolling; keep native behaviour predictable. */
-    scroll-behavior: auto;
-  }
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -68,9 +96,25 @@
     overflow-x: clip;
   }
 
+  /* Subtle film grain over the whole page (inline SVG, no image request). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
   h1, h2, h3 {
-    font-weight: 400;
-    letter-spacing: -0.035em;
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -79,39 +123,68 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--c-primary);
+    outline: 2px solid var(--c-accent);
     outline-offset: 3px;
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
   ::selection {
-    background: var(--c-primary);
-    color: #fff;
+    background: var(--c-accent);
+    color: var(--c-accent-ink);
   }
 }
 
 @layer utilities {
+  /* Gold gradient text */
+  .text-gold {
+    background-image: var(--gold-grad);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gold {
+    background-image: var(--gold-grad);
+    background-size: 200% 100%;
+  }
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Brand-shape masks cut from the official logo (see src/components/Logo.jsx). */
   .mask-wordmark {
     -webkit-mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
     mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
   }
-  .bg-gold {
-    background-image: var(--gold-grad);
+  .mask-shri {
+    -webkit-mask: url("/brand/shri-mask.png") center / contain no-repeat;
+    mask: url("/brand/shri-mask.png") center / contain no-repeat;
   }
-  .no-scrollbar {
-    scrollbar-width: none;
+
+  /* Light sweep across gold surfaces */
+  .shimmer {
+    animation: shimmer 6s ease-in-out infinite;
   }
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .spin-slow {
+    animation: spin 40s linear infinite;
   }
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+@keyframes shimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
