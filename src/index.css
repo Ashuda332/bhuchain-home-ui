@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens.
+ * All brand colours live here as CSS variables so they can be swapped in one
+ * place once the final logo / brand palette is ready. Values are RGB-free hex
+ * so they are easy to read; Tailwind utilities (bg-surface, text-ink, ...)
+ * are generated from them in the @theme block below.
+ */
+:root {
+  --c-bg: #f6f2ea;          /* warm sand page background */
+  --c-surface: #fffdf8;     /* cards */
+  --c-surface-2: #efe9dd;   /* subtle fills, insets */
+  --c-ink: #0b1b2e;         /* primary text — deep navy */
+  --c-muted: #4b5b6f;       /* secondary text */
+  --c-line: #dcd4c5;        /* thin borders */
+  --c-accent: #0f766e;      /* teal accent (text/links/buttons) */
+  --c-accent-ink: #ffffff;  /* text on accent */
+  --c-accent-soft: #d5efe9; /* accent tint */
+  --c-warn: #b45309;        /* fraud / risk highlights */
+  --c-warn-soft: #fbeedd;
+  --c-navy: #0b1b2e;        /* always-dark bands (CTA, footer) */
+  --c-navy-2: #12273f;
+  --c-sand: #f3ede2;        /* text on navy */
+  --shadow-soft: 0 1px 2px rgb(11 27 46 / 0.04), 0 8px 24px -12px rgb(11 27 46 / 0.12);
+  --grain-opacity: 0.05;
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg: #07111d;
+  --c-surface: #0d1b2b;
+  --c-surface-2: #132539;
+  --c-ink: #f3ede2;
+  --c-muted: #a6b3c3;
+  --c-line: #1f3550;
+  --c-accent: #2dd4bf;
+  --c-accent-ink: #04211e;
+  --c-accent-soft: #0f3a39;
+  --c-warn: #f5b25c;
+  --c-warn-soft: #3a2a14;
+  --c-navy: #0a1828;
+  --c-navy-2: #10243a;
+  --c-sand: #f3ede2;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  --grain-opacity: 0.07;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-warn: var(--c-warn);
+  --color-warn-soft: var(--c-warn-soft);
+  --color-navy: var(--c-navy);
+  --color-navy-2: var(--c-navy-2);
+  --color-sand: var(--c-sand);
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+
+  --shadow-soft: var(--shadow-soft);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Subtle film grain over the whole page (pure SVG, no image request). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--c-accent);
+    color: var(--c-accent-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
