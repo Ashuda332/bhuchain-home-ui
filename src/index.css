@@ -4,49 +4,56 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Design tokens.
- * All brand colours live here as CSS variables so they can be swapped in one
- * place once the final logo / brand palette is ready. Values are RGB-free hex
- * so they are easy to read; Tailwind utilities (bg-surface, text-ink, ...)
- * are generated from them in the @theme block below.
+ * Design tokens, taken from the BhuChain logo (gold + silver interlocked rings).
+ * All brand colours live here as CSS variables so they can be tuned in one place.
+ * Tailwind utilities (bg-surface, text-ink, text-accent, ...) are generated from
+ * them in the @theme block below.
  */
 :root {
-  --c-bg: #f6f2ea;          /* warm sand page background */
-  --c-surface: #fffdf8;     /* cards */
-  --c-surface-2: #efe9dd;   /* subtle fills, insets */
-  --c-ink: #0b1b2e;         /* primary text — deep navy */
-  --c-muted: #4b5b6f;       /* secondary text */
-  --c-line: #dcd4c5;        /* thin borders */
-  --c-accent: #0f766e;      /* teal accent (text/links/buttons) */
-  --c-accent-ink: #ffffff;  /* text on accent */
-  --c-accent-soft: #d5efe9; /* accent tint */
-  --c-warn: #b45309;        /* fraud / risk highlights */
-  --c-warn-soft: #fbeedd;
-  --c-navy: #0b1b2e;        /* always-dark bands (CTA, footer) */
-  --c-navy-2: #12273f;
-  --c-sand: #f3ede2;        /* text on navy */
-  --shadow-soft: 0 1px 2px rgb(11 27 46 / 0.04), 0 8px 24px -12px rgb(11 27 46 / 0.12);
-  --grain-opacity: 0.05;
+  --c-bg: #f8f5ef;          /* ivory */
+  --c-surface: #fffdf9;
+  --c-surface-2: #f1ece2;
+  --c-ink: #17130d;
+  --c-muted: #5f574b;
+  --c-line: #e3dacb;
+  --c-accent: #8a6a2b;      /* deep gold — readable as text on ivory */
+  --c-accent-ink: #1a1408;  /* text on gold buttons */
+  --c-accent-soft: #f1e6cc;
+  --c-silver: #77746f;
+  --c-warn: #b4441c;
+  --c-warn-soft: #f8e4da;
+  --c-night: #0c0a07;       /* always-dark bands (CTA, footer) */
+  --c-night-2: #16130e;
+  --c-sand: #f4efe6;        /* text on night */
+  --c-glow: rgb(212 176 106 / 0.28);
+
+  --gold-grad: linear-gradient(110deg, #9c7535 0%, #d9b873 22%, #f5e6bd 38%, #c49a4f 55%, #e9d39a 72%, #a9823f 100%);
+  --silver-grad: linear-gradient(110deg, #6d6b68 0%, #c9c7c3 35%, #f0eeeb 50%, #9a9895 70%, #5c5a58 100%);
+
+  --shadow-soft: 0 1px 2px rgb(23 19 13 / 0.04), 0 10px 30px -14px rgb(23 19 13 / 0.18);
+  --grain-opacity: 0.045;
   color-scheme: light;
 }
 
 .dark {
-  --c-bg: #07111d;
-  --c-surface: #0d1b2b;
-  --c-surface-2: #132539;
-  --c-ink: #f3ede2;
-  --c-muted: #a6b3c3;
-  --c-line: #1f3550;
-  --c-accent: #2dd4bf;
-  --c-accent-ink: #04211e;
-  --c-accent-soft: #0f3a39;
-  --c-warn: #f5b25c;
-  --c-warn-soft: #3a2a14;
-  --c-navy: #0a1828;
-  --c-navy-2: #10243a;
-  --c-sand: #f3ede2;
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
-  --grain-opacity: 0.07;
+  --c-bg: #0a0907;          /* warm black */
+  --c-surface: #12100c;
+  --c-surface-2: #1a1712;
+  --c-ink: #f4efe6;
+  --c-muted: #a69e90;
+  --c-line: #2a251d;
+  --c-accent: #d9b873;      /* bright gold */
+  --c-accent-ink: #1a1408;
+  --c-accent-soft: #2a2213;
+  --c-silver: #b9b7b3;
+  --c-warn: #f08a5d;
+  --c-warn-soft: #2d1a12;
+  --c-night: #060504;
+  --c-night-2: #12100c;
+  --c-sand: #f4efe6;
+  --c-glow: rgb(217 184 115 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -20px rgb(0 0 0 / 0.8);
+  --grain-opacity: 0.06;
   color-scheme: dark;
 }
 
@@ -60,13 +67,15 @@
   --color-accent: var(--c-accent);
   --color-accent-ink: var(--c-accent-ink);
   --color-accent-soft: var(--c-accent-soft);
+  --color-silver: var(--c-silver);
   --color-warn: var(--c-warn);
   --color-warn-soft: var(--c-warn-soft);
-  --color-navy: var(--c-navy);
-  --color-navy-2: var(--c-navy-2);
+  --color-night: var(--c-night);
+  --color-night-2: var(--c-night-2);
   --color-sand: var(--c-sand);
 
-  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
 
   --shadow-soft: var(--shadow-soft);
@@ -84,9 +93,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
-  /* Subtle film grain over the whole page (pure SVG, no image request). */
+  /* Subtle film grain over the whole page (inline SVG, no image request). */
   body::before {
     content: "";
     position: fixed;
@@ -104,7 +114,7 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -122,6 +132,53 @@
     background: var(--c-accent);
     color: var(--c-accent-ink);
   }
+}
+
+@layer utilities {
+  /* Gold gradient text */
+  .text-gold {
+    background-image: var(--gold-grad);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gold {
+    background-image: var(--gold-grad);
+    background-size: 200% 100%;
+  }
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Brand-shape masks cut from the official logo (see src/components/Logo.jsx). */
+  .mask-wordmark {
+    -webkit-mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
+    mask: url("/brand/wordmark-mask.png") center / contain no-repeat;
+  }
+  .mask-shri {
+    -webkit-mask: url("/brand/shri-mask.png") center / contain no-repeat;
+    mask: url("/brand/shri-mask.png") center / contain no-repeat;
+  }
+
+  /* Light sweep across gold surfaces */
+  .shimmer {
+    animation: shimmer 6s ease-in-out infinite;
+  }
+  .spin-slow {
+    animation: spin 40s linear infinite;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

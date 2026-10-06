@@ -1,16 +1,16 @@
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold " +
-  "transition-[background-color,color,border-color,transform,box-shadow] duration-200 " +
+  "group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold " +
+  "transition-[background-position,color,border-color,transform,box-shadow] duration-500 " +
   "active:scale-[0.98] whitespace-nowrap";
 
 const variants = {
+  // Gold gradient; the sheen slides on hover.
   primary:
-    "bg-accent text-accent-ink shadow-soft hover:brightness-110 hover:-translate-y-0.5",
+    "bg-gold bg-[position:100%_0] text-accent-ink shadow-[0_0_0_1px_rgb(255_255_255/0.15)_inset,0_10px_30px_-10px_var(--c-glow)] hover:bg-[position:0%_0] hover:-translate-y-0.5",
   secondary:
-    "border border-line bg-surface/70 text-ink backdrop-blur hover:border-accent hover:text-accent",
-  // For use on the always-dark navy bands.
-  light: "bg-sand text-navy hover:bg-white hover:-translate-y-0.5",
-  ghostLight: "border border-white/25 text-sand hover:border-white/60 hover:bg-white/5",
+    "border border-line bg-surface/50 text-ink backdrop-blur hover:border-accent/70 hover:text-accent",
+  // For use on the always-dark night bands.
+  ghostLight: "border border-white/20 text-sand hover:border-[#d9b873]/70 hover:text-[#e9d39a]",
 };
 
 /** Anchor styled as a button (the page has no real actions yet, only links). */

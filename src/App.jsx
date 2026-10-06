@@ -1,6 +1,7 @@
 import { MotionConfig } from "motion/react";
 import Navbar from "./sections/Navbar.jsx";
 import Hero from "./sections/Hero.jsx";
+import Statement from "./sections/Statement.jsx";
 import Problem from "./sections/Problem.jsx";
 import HowItWorks from "./sections/HowItWorks.jsx";
 import Features from "./sections/Features.jsx";
@@ -15,6 +16,7 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
+        <Statement />
         <Problem />
         <HowItWorks />
         <Features />

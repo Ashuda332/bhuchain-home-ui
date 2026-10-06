@@ -1,203 +1,146 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import BrandEmblem from "../components/BrandEmblem.jsx";
 import Button from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
-import { IconArrow, IconCheck } from "../components/Icons.jsx";
+import ParticleField from "../components/ParticleField.jsx";
+import { IconArrow } from "../components/Icons.jsx";
 
 const ease = [0.22, 1, 0.36, 1];
+const INTRO = 2.1; // seconds until the emblem intro is mostly done
 
 export default function Hero() {
+  const ref = useRef(null);
   const reduce = useReducedMotion();
 
-  const fadeUp = (delay) => ({
-    initial: reduce ? false : { opacity: 0, y: 18 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay, ease },
+  // Scroll: emblem drifts back and fades as you leave the hero.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const emblemScale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+  const emblemY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const emblemOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const glowScale = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
+
+  // Pointer: gentle 3D tilt of the emblem.
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotX = useSpring(useTransform(my, [-0.5, 0.5], [7, -7]), { stiffness: 60, damping: 18 });
+  const rotY = useSpring(useTransform(mx, [-0.5, 0.5], [-9, 9]), { stiffness: 60, damping: 18 });
+  const onMove = (e) => {
+    if (reduce || e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+
+  const fadeUp = (d) => ({
+    initial: reduce ? false : { opacity: 0, y: 22, filter: "blur(8px)" },
+    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+    transition: { duration: 0.9, delay: d, ease },
   });
 
   return (
-    <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden">
-      {/* Soft gradient wash + fine grid. Decorative only. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_65%,transparent)]">
-        <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl sm:left-[70%]" />
-        <div className="absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-warn/10 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
-          style={{
-            backgroundImage:
-              "linear-gradient(var(--c-line) 1px, transparent 1px), linear-gradient(90deg, var(--c-line) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-      </div>
-
-      <Container className="grid items-center gap-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-10 lg:pb-28 lg:pt-24">
-        <div>
-          <motion.p
-            {...fadeUp(0)}
-            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1.5 text-xs font-medium text-muted backdrop-blur"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-            Pilot planned for Cuttack &amp; Bhubaneswar, Odisha
-          </motion.p>
-
-          <motion.h1
-            id="hero-title"
-            {...fadeUp(0.08)}
-            className="mt-6 text-[2.6rem] font-semibold leading-[1.05] text-ink sm:text-6xl lg:text-[4.25rem]"
-          >
-            Land records you can <span className="italic text-accent">prove</span>, not just trust.
-          </motion.h1>
-
-          <motion.p {...fadeUp(0.16)} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            BhuChain gives every land parcel in Odisha a BHU-ID and a tamper-proof history, checked twice
-            before anything is recorded, so fake owners and double sales are stopped early.
-          </motion.p>
-
-          <motion.div {...fadeUp(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button href="#get-started">
-              Request early access
-              <IconArrow className="h-4 w-4" />
-            </Button>
-            <Button href="#how-it-works" variant="secondary">
-              See how it works
-            </Button>
-          </motion.div>
-        </div>
-
-        <RecordVisual reduce={reduce} />
-      </Container>
-    </section>
-  );
-}
-
-const stages = [
-  { label: "Documents submitted", detail: "Sale deed, ROR, ID" },
-  { label: "Level 1 verification", detail: "Records & ownership check" },
-  { label: "Level 2 verification", detail: "Independent sign-off" },
-  { label: "Written to ledger", detail: "Tamper-proof entry" },
-];
-
-/** Illustrative land-record card. Pure SVG/CSS, no images. */
-function RecordVisual({ reduce }) {
-  const base = 0.5;
-  return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0, y: 24, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.9, delay: 0.2, ease }}
-      className="relative mx-auto w-full max-w-md lg:max-w-none"
-      role="img"
-      aria-label="Illustration of a sample BhuChain land record: a parcel with a BHU-ID passing through document submission, two levels of verification, and being written to a tamper-proof ledger."
+    <section
+      id="top"
+      ref={ref}
+      aria-labelledby="hero-title"
+      onPointerMove={onMove}
+      className="relative isolate -mt-16 flex min-h-[100svh] flex-col overflow-hidden pt-16"
     >
-      {/* Ledger blocks peeking out behind the card */}
-      <div aria-hidden="true" className="absolute -right-2 -top-5 hidden w-40 rotate-3 sm:block">
-        {[0, 1].map((i) => (
+      {/* Background: aura, rotating halo, gold dust, fade into the page */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <motion.div
+          style={reduce ? undefined : { scale: glowScale }}
+          className="absolute left-1/2 top-[38%] h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2"
+        >
           <div
-            key={i}
-            className="mb-2 rounded-xl border border-line bg-surface-2/90 px-3 py-2 font-mono text-[10px] text-muted shadow-soft"
-            style={{ transform: `translateX(${i * 14}px)` }}
-          >
-            block #[placeholder]
-            <div className="mt-1 h-1 w-3/4 rounded bg-line" />
-          </div>
-        ))}
+            className="h-full w-full rounded-full blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--c-glow) 0%, transparent 62%)" }}
+          />
+        </motion.div>
+        <div className="absolute left-1/2 top-[38%] h-[52rem] w-[52rem] -translate-x-1/2 -translate-y-1/2 opacity-50">
+          <div
+            className="spin-slow h-full w-full rounded-full"
+            style={{
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, rgb(217 184 115 / 0.22) 40deg, transparent 90deg, transparent 180deg, rgb(185 183 179 / 0.16) 230deg, transparent 280deg)",
+              maskImage: "radial-gradient(circle, transparent 38%, #000 40%, #000 60%, transparent 70%)",
+              WebkitMaskImage: "radial-gradient(circle, transparent 38%, #000 40%, #000 60%, transparent 70%)",
+            }}
+          />
+        </div>
+        <ParticleField className="absolute inset-0" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
       </div>
 
-      <motion.div
-        animate={reduce ? undefined : { y: [0, -6, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="relative rounded-3xl border border-line bg-surface p-5 shadow-soft sm:p-6"
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">Sample land record</p>
-            <p className="mt-1 font-mono text-sm font-medium text-ink">BHU-ID · OD-CTK-[placeholder]</p>
-          </div>
-          <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-semibold text-accent">
-            Illustrative
+      <Container className="flex flex-1 flex-col items-center justify-center pb-16 pt-6 text-center sm:pt-10">
+        <motion.p
+          {...fadeUp(reduce ? 0 : INTRO - 0.6)}
+          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/40 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
+        >
+          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
-        </div>
+          Pilot planned · Cuttack &amp; Bhubaneswar, Odisha
+        </motion.p>
 
-        {/* Parcel map */}
-        <div className="mt-5 overflow-hidden rounded-2xl border border-line bg-surface-2">
-          <svg viewBox="0 0 320 150" className="block h-auto w-full" aria-hidden="true">
-            <defs>
-              <pattern id="hero-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M20 0H0V20" fill="none" stroke="var(--c-line)" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="320" height="150" fill="url(#hero-grid)" />
-            {/* neighbouring parcels */}
-            <path d="M20 20 L110 14 L118 70 L28 82 Z" fill="none" stroke="var(--c-line)" strokeWidth="1.5" />
-            <path d="M210 18 L300 26 L292 92 L222 84 Z" fill="none" stroke="var(--c-line)" strokeWidth="1.5" />
-            <path d="M30 96 L120 88 L126 136 L36 140 Z" fill="none" stroke="var(--c-line)" strokeWidth="1.5" />
-            {/* highlighted parcel */}
-            <motion.path
-              d="M128 30 L200 22 L214 92 L196 132 L136 126 Z"
-              fill="var(--c-accent)"
-              fillOpacity="0.14"
-              stroke="var(--c-accent)"
-              strokeWidth="2.5"
-              strokeLinejoin="round"
-              initial={reduce ? false : { pathLength: 0, fillOpacity: 0 }}
-              animate={{ pathLength: 1, fillOpacity: 0.14 }}
-              transition={{ duration: 1.4, delay: base, ease: "easeInOut" }}
-            />
-            <circle cx="170" cy="78" r="4" fill="var(--c-accent)" />
-            {!reduce && (
-              <motion.circle
-                cx="170"
-                cy="78"
-                r="4"
-                fill="none"
-                stroke="var(--c-accent)"
-                strokeWidth="1.5"
-                animate={{ r: [4, 16], opacity: [0.7, 0] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 1.6 }}
-              />
-            )}
-          </svg>
-        </div>
+        <motion.div
+          style={reduce ? undefined : { scale: emblemScale, y: emblemY, opacity: emblemOpacity }}
+          className="mt-6 w-full max-w-[720px] [perspective:1200px]"
+        >
+          <motion.div style={reduce ? undefined : { rotateX: rotX, rotateY: rotY }}>
+            <BrandEmblem className="w-full" delay={0.15} />
+          </motion.div>
+          {/* The emblem is decorative; this is its accessible name. */}
+          <span className="sr-only">BhuChain</span>
+        </motion.div>
 
-        <dl className="mt-4 grid grid-cols-3 gap-3 text-xs">
-          {[
-            ["Owner", "[placeholder]"],
-            ["Khata / Plot", "[placeholder]"],
-            ["Area", "[placeholder]"],
-          ].map(([k, v]) => (
-            <div key={k} className="rounded-xl border border-line px-3 py-2">
-              <dt className="text-muted">{k}</dt>
-              <dd className="mt-0.5 truncate font-medium text-ink">{v}</dd>
-            </div>
-          ))}
-        </dl>
+        <motion.h1
+          id="hero-title"
+          {...fadeUp(reduce ? 0 : INTRO - 0.3)}
+          className="mt-4 max-w-3xl text-[2.1rem] font-semibold leading-[1.08] text-ink sm:text-5xl lg:text-6xl"
+        >
+          Land records Odisha can <span className="text-gold serif-accent shimmer pr-1 text-[1.12em]">prove</span>.
+        </motion.h1>
 
-        {/* Verification stages */}
-        <ol className="mt-5 space-y-2.5">
-          {stages.map((s, i) => {
-            const last = i === stages.length - 1;
-            return (
-              <motion.li
-                key={s.label}
-                initial={reduce ? false : { opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: base + 0.9 + i * 0.35, ease }}
-                className="flex items-center gap-3"
-              >
-                <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-                    last ? "bg-accent text-accent-ink" : "bg-accent-soft text-accent"
-                  }`}
-                >
-                  <IconCheck className="h-3.5 w-3.5" strokeWidth={2.5} />
-                </span>
-                <span className="flex-1 text-sm font-medium text-ink">{s.label}</span>
-                <span className="hidden text-xs text-muted min-[400px]:inline">{s.detail}</span>
-              </motion.li>
-            );
-          })}
-        </ol>
-      </motion.div>
-    </motion.div>
+        <motion.p {...fadeUp(reduce ? 0 : INTRO - 0.15)} className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+          Every parcel gets a BHU-ID and a tamper-proof history, verified twice before anything is recorded, so
+          fake owners and double sales are stopped early.
+        </motion.p>
+
+        <motion.div {...fadeUp(reduce ? 0 : INTRO)} className="mt-9 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+          <Button href="#get-started">
+            Request early access
+            <IconArrow className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+          </Button>
+          <Button href="#how-it-works" variant="secondary">
+            See how it works
+          </Button>
+        </motion.div>
+      </Container>
+
+      {/* Scroll cue */}
+      <motion.a
+        href="#statement"
+        aria-label="Scroll to learn more"
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: INTRO + 0.6, duration: 1 }}
+        className="mx-auto mb-8 hidden h-10 w-6 items-start justify-center rounded-full border border-line p-1.5 sm:flex"
+      >
+        <motion.span
+          className="block h-2 w-1 rounded-full bg-accent"
+          animate={reduce ? undefined : { y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.a>
+    </section>
   );
 }

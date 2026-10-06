@@ -1,4 +1,6 @@
+import { motion } from "motion/react";
 import Container from "../components/Container.jsx";
+import GlowCard from "../components/GlowCard.jsx";
 import Reveal from "../components/Reveal.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { IconCopy, IconDoc, IconUserX } from "../components/Icons.jsx";
@@ -8,7 +10,7 @@ const problems = [
     icon: IconUserX,
     title: "Fake owner",
     body: "Someone poses as the owner with forged or borrowed papers and sells land that isn't theirs. The real owner often finds out only after the money is gone.",
-    blocked: "BhuChain links each sale to the owner verified on the parcel's BHU-ID.",
+    blocked: "Each sale is tied to the owner verified on the parcel's BHU-ID.",
   },
   {
     icon: IconCopy,
@@ -30,28 +32,29 @@ export default function Problem() {
       <Container>
         <SectionHeading
           id="problem-title"
-          eyebrow="The problem"
-          title="Buying land shouldn't feel like a gamble."
+          eyebrow="Fraud prevention"
+          title={<>Buying land shouldn't feel like a <span className="text-gold serif-accent">gamble</span>.</>}
           intro="Land fraud usually isn't sophisticated. It succeeds because records are hard to check and easy to dispute. Here is what buyers in Odisha are up against."
         />
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
           {problems.map((p, i) => (
-            <Reveal
-              as="article"
-              key={p.title}
-              delay={i * 0.08}
-              className="group flex flex-col rounded-2xl border border-line bg-surface p-6 shadow-soft transition-colors hover:border-warn/50"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-warn-soft text-warn">
-                <p.icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-5 text-xl font-semibold text-ink">{p.title}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.body}</p>
-              <p className="mt-5 border-t border-line pt-4 text-sm font-medium text-ink">
-                <span className="text-accent">How BhuChain helps: </span>
-                {p.blocked}
-              </p>
+            <Reveal key={p.title} delay={i * 0.1} className="h-full">
+              <GlowCard as="article" className="flex h-full flex-col p-7">
+                <motion.span
+                  whileHover={{ rotate: [0, -8, 8, -4, 0] }}
+                  transition={{ duration: 0.5 }}
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-warn-soft text-warn"
+                >
+                  <p.icon className="h-5 w-5" />
+                </motion.span>
+                <h3 className="mt-6 text-xl font-semibold text-ink">{p.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.body}</p>
+                <div className="mt-6 border-t border-line pt-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">How BhuChain helps</p>
+                  <p className="mt-1.5 text-sm font-medium text-ink">{p.blocked}</p>
+                </div>
+              </GlowCard>
             </Reveal>
           ))}
         </div>

@@ -1,4 +1,6 @@
+import { motion, useReducedMotion } from "motion/react";
 import Container from "../components/Container.jsx";
+import GlowCard from "../components/GlowCard.jsx";
 import Reveal from "../components/Reveal.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { IconPin } from "../components/Icons.jsx";
@@ -29,30 +31,31 @@ export default function Pilot() {
         <SectionHeading
           id="pilot-title"
           eyebrow="Pilot"
-          title="Starting where it matters: Cuttack and Bhubaneswar."
+          title={<>Starting where it matters: <span className="text-gold serif-accent">Cuttack</span> and <span className="text-gold serif-accent">Bhubaneswar</span>.</>}
           intro="We're starting with two cities so the process can be tested carefully with real users before any wider rollout."
         />
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {cities.map((c, i) => (
-            <Reveal
-              as="article"
-              key={c.name}
-              delay={i * 0.1}
-              className="relative overflow-hidden rounded-3xl border border-line bg-surface p-7 shadow-soft"
-            >
-              <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/10 blur-2xl" />
-              <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                <IconPin className="h-4 w-4" />
-                {c.tag}
-              </p>
-              <h3 className="mt-4 text-3xl font-semibold text-ink sm:text-4xl">{c.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{c.body}</p>
-              <p className="mt-6 text-sm text-muted">
-                Status: <span className="font-medium text-ink">[placeholder]</span>
-              </p>
-            </Reveal>
-          ))}
+        <div className="mt-14 grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal>
+            <PilotMap />
+          </Reveal>
+          <div className="grid gap-4">
+            {cities.map((c, i) => (
+              <Reveal key={c.name} delay={0.1 + i * 0.1}>
+                <GlowCard as="article" className="h-full p-7">
+                  <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                    <IconPin className="h-4 w-4" />
+                    {c.tag}
+                  </p>
+                  <h3 className="mt-3 text-3xl font-semibold text-ink">{c.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.body}</p>
+                  <p className="mt-4 text-sm text-muted">
+                    Status: <span className="font-medium text-ink">[placeholder]</span>
+                  </p>
+                </GlowCard>
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         <Reveal as="dl" className="mt-4 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
@@ -65,5 +68,76 @@ export default function Pilot() {
         </Reveal>
       </Container>
     </section>
+  );
+}
+
+/** Abstract, not-to-scale map: Mahanadi, coast, and the two pilot cities. */
+function PilotMap() {
+  const reduce = useReducedMotion();
+  const cities = [
+    { name: "Cuttack", x: 300, y: 150 },
+    { name: "Bhubaneswar", x: 230, y: 260 },
+  ];
+  return (
+    <div
+      className="relative h-full min-h-[340px] overflow-hidden rounded-3xl border border-line bg-surface shadow-soft"
+      style={{ backgroundImage: "radial-gradient(var(--c-line) 1px, transparent 1px)", backgroundSize: "14px 14px" }}
+      role="img"
+      aria-label="Schematic map, not to scale, showing the two pilot cities Cuttack and Bhubaneswar near the Mahanadi river in Odisha."
+    >
+      <svg viewBox="0 0 520 380" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="pm-gold" x1="0" x2="1">
+            <stop offset="0" stopColor="#a47a35" />
+            <stop offset=".5" stopColor="#f5e6bd" />
+            <stop offset="1" stopColor="#c49a4f" />
+          </linearGradient>
+        </defs>
+        {/* coastline (Bay of Bengal to the south-east) */}
+        <motion.path
+          d="M520 120 C 470 170, 450 220, 410 260 S 330 340, 300 380"
+          fill="none" stroke="var(--c-silver)" strokeOpacity=".5" strokeWidth="1.5" strokeDasharray="4 6"
+          initial={reduce ? false : { pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+          transition={{ duration: 2 }}
+        />
+        <text x="510" y="345" textAnchor="end" fill="var(--c-muted)" fontSize="11" letterSpacing="2">BAY OF BENGAL</text>
+        {/* Mahanadi */}
+        <motion.path
+          d="M0 110 C 90 90, 170 140, 250 130 S 380 100, 470 150"
+          fill="none" stroke="var(--c-accent)" strokeOpacity=".45" strokeWidth="3" strokeLinecap="round"
+          initial={reduce ? false : { pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+          transition={{ duration: 2.2, ease: "easeInOut" }}
+        />
+        <text x="40" y="92" fill="var(--c-muted)" fontSize="11" letterSpacing="2">MAHANADI</text>
+        {/* link between cities */}
+        <motion.path
+          d={`M${cities[0].x} ${cities[0].y} Q 300 220 ${cities[1].x} ${cities[1].y}`}
+          fill="none" stroke="url(#pm-gold)" strokeWidth="2" strokeDasharray="6 6"
+          initial={reduce ? false : { pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 1.2 }}
+        />
+        {cities.map((c, i) => (
+          <g key={c.name}>
+            {!reduce && (
+              <motion.circle
+                cx={c.x} cy={c.y} r="10" fill="none" stroke="var(--c-accent)" strokeWidth="1.5"
+                animate={{ r: [8, 34], opacity: [0.8, 0] }}
+                transition={{ duration: 2.4, repeat: Infinity, delay: i * 1.2, ease: "easeOut" }}
+              />
+            )}
+            <motion.circle
+              cx={c.x} cy={c.y} r="7" fill="url(#pm-gold)" stroke="var(--c-bg)" strokeWidth="3"
+              initial={reduce ? false : { scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.8 + i * 0.3 }}
+              style={{ transformOrigin: `${c.x}px ${c.y}px` }}
+            />
+            <text x={c.x + 16} y={c.y + 5} fill="var(--c-ink)" fontSize="15" fontWeight="600" fontFamily="Sora, sans-serif">
+              {c.name}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <p className="absolute bottom-4 left-5 text-[11px] uppercase tracking-[0.18em] text-muted">Schematic · not to scale</p>
+    </div>
   );
 }

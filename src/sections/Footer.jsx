@@ -22,10 +22,10 @@ const groups = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-sand">
+    <footer className="bg-night text-sand border-t border-white/5">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
         <div>
-          {/* Same Logo component as the navbar; inherits light text on navy. */}
+          {/* Same Logo component as the navbar; sits on the dark night band. */}
           <a href="#top" aria-label="BhuChain home" className="text-sand">
             <Logo />
           </a>
@@ -41,7 +41,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5">
               {g.links.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-sand/85 transition-colors hover:text-white">
+                  <a href={l.href} className="text-sm text-sand/85 transition-colors hover:text-[#e9d39a]">
                     {l.label}
                   </a>
                 </li>
