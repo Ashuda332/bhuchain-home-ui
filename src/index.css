@@ -4,67 +4,81 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Design tokens.
- *  - Gold and silver are sampled from the official logo (public/brand/logo-original.webp):
- *    gold  #9E7E49 (shadow) · #C29E61 (mid) · #EDDEB1 (highlight)
- *    silver #4D4B4A (shadow) · #9D9996 (mid) · #DAD2CE (highlight)
- *  - Midnight navy base: the fintech / blockchain palette from the ui-ux-pro-max skill.
- *  - "Verified" teal is used only for verified / valid / live states, never as decoration.
- * Tailwind utilities (bg-surface, text-ink, text-accent, text-verify, ...) are generated
- * from these in the @theme block below.
+ * BhuChain design tokens — "Pattachitra night".
+ * Palette drawn from Odisha's Pattachitra pigments (indigo, conch white,
+ * vermilion) plus the official logo's gold and silver.
+ *
+ *   Logo gold    #9E7E49 shadow · #C29E61 mid · #EDDEB1 highlight (sampled from the logo)
+ *   Logo silver  #4D4B4A shadow · #9D9996 mid · #DAD2CE highlight (sampled from the logo)
+ *   Indigo night #0C0F24   Conch white #F2EEE6
+ *   Paddy green  — verified / sealed states only
+ *   Vermilion    — fraud / rejected states only
+ *
+ * Tailwind utilities (bg-surface, text-ink, text-accent, text-verify, ...) come
+ * from these in the @theme block below. Change a value here to retheme the site.
  */
 :root {
-  --c-bg: #f4f5f7;          /* porcelain */
+  --c-bg: #f1f0f5;
   --c-surface: #ffffff;
-  --c-surface-2: #eceef2;
-  --c-ink: #0e1526;         /* midnight ink */
-  --c-muted: #4a5468;
-  --c-line: #dde1e8;
-  --c-accent: #87672f;      /* logo gold, darkened for text contrast on porcelain */
-  --c-accent-ink: #1a1408;  /* text on gold buttons */
-  --c-accent-soft: #f3ead8;
+  --c-surface-2: #e7e6ef;
+  --c-ink: #12163a;          /* indigo ink */
+  --c-muted: #555a7a;
+  --c-line: #d8d7e3;
+  --c-accent: #87672f;       /* logo gold, darkened for text on light */
+  --c-accent-ink: #1a1408;
   --c-silver: #6f6b68;
-  --c-verify: #0c7d6b;
-  --c-verify-soft: #dcf3ee;
-  --c-warn: #b42318;
-  --c-warn-soft: #fde7e4;
-  --c-night: #0a0f1c;       /* always-dark bands (CTA, footer) */
-  --c-night-2: #111829;
-  --c-sand: #eef0f4;        /* text on night */
-  --c-glow: rgb(194 158 97 / 0.30);
+  --c-verify: #1d7f52;
+  --c-verify-soft: #dcf1e5;
+  --c-warn: #c2391b;
+  --c-warn-soft: #fbe3dc;
+  --c-night: #0c0f24;
+  --c-sand: #f2eee6;
+  --c-glow: rgb(194 158 97 / 0.28);
+  /* land tiles in the hero map */
+  --c-field-1: #cfd8c4;
+  --c-field-2: #c3cfb5;
+  --c-field-3: #d9d1b8;
+  --c-water: #b9c6dc;
+  --c-field-edge: rgb(18 22 58 / 0.18);
+  --c-field-side: #a6ad9b;
 
-  --shadow-soft: 0 1px 2px rgb(14 21 38 / 0.05), 0 12px 32px -16px rgb(14 21 38 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(18 22 58 / 0.06), 0 14px 36px -18px rgb(18 22 58 / 0.28);
   --grain-opacity: 0.035;
   color-scheme: light;
 }
 
 .dark {
-  --c-bg: #0a0f1c;          /* midnight ledger */
-  --c-surface: #0f1626;
-  --c-surface-2: #151e33;
-  --c-ink: #eef0f4;
-  --c-muted: #98a2b6;
-  --c-line: #1f2a42;
-  --c-accent: #caaa75;      /* logo gold */
+  --c-bg: #0c0f24;           /* indigo night */
+  --c-surface: #131735;
+  --c-surface-2: #1a1f45;
+  --c-ink: #f2eee6;          /* conch white */
+  --c-muted: #a3a7c4;
+  --c-line: #272d5c;
+  --c-accent: #caaa75;       /* logo gold */
   --c-accent-ink: #1a1408;
-  --c-accent-soft: #231f1a;
-  --c-silver: #bbb7b4;      /* logo silver */
-  --c-verify: #3fd0b4;
-  --c-verify-soft: #0f2b2b;
-  --c-warn: #ff7a6b;
-  --c-warn-soft: #2f1518;
-  --c-night: #070b15;
-  --c-night-2: #0f1626;
-  --c-sand: #eef0f4;
-  --c-glow: rgb(194 158 97 / 0.22);
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 44px -22px rgb(0 0 0 / 0.9);
+  --c-silver: #bbb7b4;
+  --c-verify: #5fd39a;
+  --c-verify-soft: #12302c;
+  --c-warn: #ff6b4a;
+  --c-warn-soft: #3a1620;
+  --c-night: #080a1a;
+  --c-sand: #f2eee6;
+  --c-glow: rgb(194 158 97 / 0.24);
+  --c-field-1: #22403f;      /* paddy at night */
+  --c-field-2: #2a3a52;
+  --c-field-3: #3a3646;      /* fallow */
+  --c-water: #1f3a8a;        /* Mahanadi */
+  --c-field-edge: rgb(194 158 97 / 0.28);
+  --c-field-side: #141a3a;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 20px 48px -24px rgb(0 0 0 / 0.9);
   --grain-opacity: 0.05;
   color-scheme: dark;
 }
 
 :root {
-  /* exact logo gradients (gold follows the logo's letterforms: mostly mid gold, one soft highlight) */
   --gold-grad: linear-gradient(110deg, #9e7e49 0%, #b8985e 24%, #dcc595 42%, #be9a60 58%, #c4af89 76%, #a68149 100%);
+  --gold-face: linear-gradient(135deg, #eddeb1 0%, #c29e61 45%, #9e7e49 100%);
   --silver-grad: linear-gradient(110deg, #4d4b4a 0%, #9d9996 30%, #dad2ce 48%, #908c89 68%, #666261 100%);
 }
 
@@ -77,20 +91,18 @@
   --color-line: var(--c-line);
   --color-accent: var(--c-accent);
   --color-accent-ink: var(--c-accent-ink);
-  --color-accent-soft: var(--c-accent-soft);
   --color-silver: var(--c-silver);
+  --color-verify: var(--c-verify);
+  --color-verify-soft: var(--c-verify-soft);
   --color-warn: var(--c-warn);
   --color-warn-soft: var(--c-warn-soft);
   --color-night: var(--c-night);
-  --color-night-2: var(--c-night-2);
   --color-sand: var(--c-sand);
-  --color-verify: var(--c-verify);
-  --color-verify-soft: var(--c-verify-soft);
 
-  /* One family (Outfit, geometric like the logo letters) + a mono used only for real ledger data. */
-  --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-odia: "Noto Sans Oriya", "Kalinga", "Odia Sangam MN", sans-serif;
 
   --shadow-soft: var(--shadow-soft);
 }
@@ -128,7 +140,7 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.035em;
     text-wrap: balance;
   }
@@ -150,7 +162,6 @@
 }
 
 @layer utilities {
-  /* Gold gradient text */
   .text-gold {
     background-image: var(--gold-grad);
     background-size: 200% 100%;
@@ -162,6 +173,12 @@
     background-image: var(--gold-grad);
     background-size: 200% 100%;
   }
+  .font-odia {
+    font-family: var(--font-odia);
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
 
   /* Brand-shape masks cut from the official logo (see src/components/Logo.jsx). */
   .mask-wordmark {
@@ -172,22 +189,6 @@
     -webkit-mask: url("/brand/shri-mask.png") center / contain no-repeat;
     mask: url("/brand/shri-mask.png") center / contain no-repeat;
   }
-
-  /* Light sweep across gold surfaces */
-  .shimmer {
-    animation: shimmer 6s ease-in-out infinite;
-  }
-  .spin-slow {
-    animation: spin 40s linear infinite;
-  }
-}
-
-@keyframes shimmer {
-  0%, 100% { background-position: 100% 0; }
-  50% { background-position: 0% 0; }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -199,9 +200,4 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
