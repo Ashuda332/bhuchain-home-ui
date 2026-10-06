@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BhuChain — Tamper-proof land records for Odisha</title>
+    <meta
+      name="description"
+      content="BhuChain is a blockchain-based land registry and real estate platform for Odisha, piloting in Cuttack and Bhubaneswar."
+    />
+    <meta name="theme-color" content="#0a0907" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Apply saved / system theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var saved = localStorage.getItem("bhuchain-theme");
+          // Dark is the default brand look; a saved choice wins.
+          var dark = saved ? saved === "dark" : true;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
