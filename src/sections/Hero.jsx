@@ -10,8 +10,7 @@ import {
 import BrandEmblem from "../components/BrandEmblem.jsx";
 import Button from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
-import ParticleField from "../components/ParticleField.jsx";
-import { IconArrow } from "../components/Icons.jsx";
+import NodeNetwork from "../components/NodeNetwork.jsx";
 
 const ease = [0.22, 1, 0.36, 1];
 const INTRO = 2.1; // seconds until the emblem intro is mostly done
@@ -69,13 +68,13 @@ export default function Hero() {
             className="spin-slow h-full w-full rounded-full"
             style={{
               background:
-                "conic-gradient(from 0deg, transparent 0deg, rgb(217 184 115 / 0.22) 40deg, transparent 90deg, transparent 180deg, rgb(185 183 179 / 0.16) 230deg, transparent 280deg)",
+                "conic-gradient(from 0deg, transparent 0deg, rgb(194 158 97 / 0.22) 40deg, transparent 90deg, transparent 180deg, rgb(187 183 180 / 0.16) 230deg, transparent 280deg)",
               maskImage: "radial-gradient(circle, transparent 38%, #000 40%, #000 60%, transparent 70%)",
               WebkitMaskImage: "radial-gradient(circle, transparent 38%, #000 40%, #000 60%, transparent 70%)",
             }}
           />
         </div>
-        <ParticleField className="absolute inset-0" />
+        <NodeNetwork className="absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
       </div>
 
@@ -88,7 +87,7 @@ export default function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
-          Pilot planned · Cuttack &amp; Bhubaneswar, Odisha
+          Pilot planned in Cuttack and Bhubaneswar, Odisha
         </motion.p>
 
         <motion.div
@@ -107,18 +106,17 @@ export default function Hero() {
           {...fadeUp(reduce ? 0 : INTRO - 0.3)}
           className="mt-4 max-w-3xl text-[2.1rem] font-semibold leading-[1.08] text-ink sm:text-5xl lg:text-6xl"
         >
-          Land records Odisha can <span className="text-gold serif-accent shimmer pr-1 text-[1.12em]">prove</span>.
+          Land records that can't be forged, erased or sold twice.
         </motion.h1>
 
         <motion.p {...fadeUp(reduce ? 0 : INTRO - 0.15)} className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-          Every parcel gets a BHU-ID and a tamper-proof history, verified twice before anything is recorded, so
-          fake owners and double sales are stopped early.
+          BhuChain gives every land parcel in Odisha a BHU-ID and a tamper-proof history on a blockchain ledger,
+          verified twice before anything is written.
         </motion.p>
 
         <motion.div {...fadeUp(reduce ? 0 : INTRO)} className="mt-9 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
           <Button href="#get-started">
             Request early access
-            <IconArrow className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Button>
           <Button href="#how-it-works" variant="secondary">
             See how it works

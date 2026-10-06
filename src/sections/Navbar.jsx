@@ -77,7 +77,7 @@ export default function Navbar() {
           </div>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink md:hidden"
+            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-line text-ink md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}

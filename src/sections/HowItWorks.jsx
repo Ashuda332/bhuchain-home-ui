@@ -44,8 +44,7 @@ export default function HowItWorks() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
             id="how-title"
-            eyebrow="How it works"
-            title={<>From paperwork to <span className="text-gold serif-accent">proof</span> in four steps.</>}
+            title="From paperwork to proof in four steps."
             intro="BhuChain doesn't replace the existing registry. It adds a verified, permanent layer on top of it."
           />
           <RecordPreview active={active} className="mt-10 hidden lg:block" />
@@ -86,7 +85,7 @@ function Step({ step, index, active }) {
         <step.icon className="h-5 w-5" />
       </span>
       <div className={`rounded-2xl border p-5 transition-colors duration-500 sm:p-6 ${active ? "border-accent/40 bg-surface" : "border-transparent"}`}>
-        <p className="font-mono text-xs font-medium text-muted">Step {String(index + 1).padStart(2, "0")}</p>
+        <p className="text-sm font-medium text-accent">Step {index + 1}</p>
         <h3 className="mt-1 text-xl font-semibold text-ink sm:text-2xl">{step.title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">{step.body}</p>
       </div>
@@ -101,8 +100,8 @@ function RecordPreview({ active, className = "" }) {
   return (
     <div className={`rounded-3xl border border-line bg-surface p-6 shadow-soft ${className}`} aria-hidden="true">
       <div className="flex items-center justify-between">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">Sample record · illustrative</p>
-        <span className="font-mono text-xs text-accent">{active + 1}/4</span>
+        <p className="text-sm font-medium text-muted">Sample record (illustrative)</p>
+        <span className="text-sm text-accent">{active + 1} of 4</span>
       </div>
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-2">
         <motion.div

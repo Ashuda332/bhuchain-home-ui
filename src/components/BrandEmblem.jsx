@@ -49,7 +49,7 @@ export default function BrandEmblem({ className = "", delay = 0 }) {
         cy={c.cy}
         r={c.r}
         fill="none"
-        stroke="#fffaf0"
+        stroke="#f6eed6"
         strokeWidth={STROKE * 0.45}
         strokeLinecap="round"
         pathLength={1}
@@ -69,18 +69,19 @@ export default function BrandEmblem({ className = "", delay = 0 }) {
       <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
         <defs>
           <linearGradient id="be-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f5e6bd" />
-            <stop offset=".3" stopColor="#d4ae64" />
-            <stop offset=".55" stopColor="#a47a35" />
-            <stop offset=".8" stopColor="#e9d39a" />
-            <stop offset="1" stopColor="#8a6527" />
+            {/* sampled from the official logo */}
+            <stop offset="0" stopColor="#eddeb1" />
+            <stop offset=".3" stopColor="#c29e61" />
+            <stop offset=".55" stopColor="#9e7e49" />
+            <stop offset=".8" stopColor="#ddbb8e" />
+            <stop offset="1" stopColor="#8f7240" />
           </linearGradient>
           <linearGradient id="be-silver" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f0eeeb" />
-            <stop offset=".35" stopColor="#a9a7a3" />
-            <stop offset=".6" stopColor="#5c5a58" />
-            <stop offset=".85" stopColor="#d8d6d3" />
-            <stop offset="1" stopColor="#7d7b78" />
+            <stop offset="0" stopColor="#dad2ce" />
+            <stop offset=".35" stopColor="#9d9996" />
+            <stop offset=".6" stopColor="#4d4b4a" />
+            <stop offset=".85" stopColor="#bbb7b4" />
+            <stop offset="1" stopColor="#666261" />
           </linearGradient>
           <filter id="be-soft" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="5" />
@@ -105,8 +106,8 @@ export default function BrandEmblem({ className = "", delay = 0 }) {
           transition={{ duration: 2, delay: delay + 0.8 }}
           filter="url(#be-glow)"
         >
-          <circle cx={SILVER.cx} cy={SILVER.cy} r={SILVER.r} fill="none" stroke="#b9b7b3" strokeOpacity=".35" strokeWidth={STROKE} />
-          <circle cx={GOLD.cx} cy={GOLD.cy} r={GOLD.r} fill="none" stroke="#d9b873" strokeOpacity=".6" strokeWidth={STROKE} />
+          <circle cx={SILVER.cx} cy={SILVER.cy} r={SILVER.r} fill="none" stroke="#bbb7b4" strokeOpacity=".3" strokeWidth={STROKE} />
+          <circle cx={GOLD.cx} cy={GOLD.cy} r={GOLD.r} fill="none" stroke="#c29e61" strokeOpacity=".6" strokeWidth={STROKE} />
         </motion.g>
 
         <g mask="url(#be-gap)">

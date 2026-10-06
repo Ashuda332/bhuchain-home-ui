@@ -10,7 +10,7 @@ const variants = {
   secondary:
     "border border-line bg-surface/50 text-ink backdrop-blur hover:border-accent/70 hover:text-accent",
   // For use on the always-dark night bands.
-  ghostLight: "border border-white/20 text-sand hover:border-[#d9b873]/70 hover:text-[#e9d39a]",
+  ghostLight: "border border-white/20 text-sand hover:border-[#c29e61]/70 hover:text-[#eddeb1]",
 };
 
 /** Anchor styled as a button (the page has no real actions yet, only links). */

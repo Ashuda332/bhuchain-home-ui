@@ -30,8 +30,7 @@ export default function Pilot() {
       <Container>
         <SectionHeading
           id="pilot-title"
-          eyebrow="Pilot"
-          title={<>Starting where it matters: <span className="text-gold serif-accent">Cuttack</span> and <span className="text-gold serif-accent">Bhubaneswar</span>.</>}
+          title="Starting where it matters: Cuttack and Bhubaneswar."
           intro="We're starting with two cities so the process can be tested carefully with real users before any wider rollout."
         />
 
@@ -43,7 +42,7 @@ export default function Pilot() {
             {cities.map((c, i) => (
               <Reveal key={c.name} delay={0.1 + i * 0.1}>
                 <GlowCard as="article" className="h-full p-7">
-                  <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  <p className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
                     <IconPin className="h-4 w-4" />
                     {c.tag}
                   </p>
@@ -61,7 +60,7 @@ export default function Pilot() {
         <Reveal as="dl" className="mt-4 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
           {details.map(([k, v]) => (
             <div key={k} className="bg-surface px-6 py-5">
-              <dt className="text-xs font-medium uppercase tracking-wider text-muted">{k}</dt>
+              <dt className="text-sm text-muted">{k}</dt>
               <dd className="mt-1 font-display text-xl font-semibold text-ink">{v}</dd>
             </div>
           ))}
@@ -88,9 +87,9 @@ function PilotMap() {
       <svg viewBox="0 0 520 380" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="pm-gold" x1="0" x2="1">
-            <stop offset="0" stopColor="#a47a35" />
-            <stop offset=".5" stopColor="#f5e6bd" />
-            <stop offset="1" stopColor="#c49a4f" />
+            <stop offset="0" stopColor="#9e7e49" />
+            <stop offset=".5" stopColor="#eddeb1" />
+            <stop offset="1" stopColor="#c29e61" />
           </linearGradient>
         </defs>
         {/* coastline (Bay of Bengal to the south-east) */}
@@ -100,7 +99,7 @@ function PilotMap() {
           initial={reduce ? false : { pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
           transition={{ duration: 2 }}
         />
-        <text x="510" y="345" textAnchor="end" fill="var(--c-muted)" fontSize="11" letterSpacing="2">BAY OF BENGAL</text>
+        <text x="510" y="345" textAnchor="end" fill="var(--c-muted)" fontSize="12" fontStyle="italic">Bay of Bengal</text>
         {/* Mahanadi */}
         <motion.path
           d="M0 110 C 90 90, 170 140, 250 130 S 380 100, 470 150"
@@ -108,7 +107,7 @@ function PilotMap() {
           initial={reduce ? false : { pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
           transition={{ duration: 2.2, ease: "easeInOut" }}
         />
-        <text x="40" y="92" fill="var(--c-muted)" fontSize="11" letterSpacing="2">MAHANADI</text>
+        <text x="40" y="92" fill="var(--c-muted)" fontSize="12" fontStyle="italic">Mahanadi river</text>
         {/* link between cities */}
         <motion.path
           d={`M${cities[0].x} ${cities[0].y} Q 300 220 ${cities[1].x} ${cities[1].y}`}
@@ -131,13 +130,13 @@ function PilotMap() {
               transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.8 + i * 0.3 }}
               style={{ transformOrigin: `${c.x}px ${c.y}px` }}
             />
-            <text x={c.x + 16} y={c.y + 5} fill="var(--c-ink)" fontSize="15" fontWeight="600" fontFamily="Sora, sans-serif">
+            <text x={c.x + 16} y={c.y + 5} fill="var(--c-ink)" fontSize="15" fontWeight="600" fontFamily="Outfit, sans-serif">
               {c.name}
             </text>
           </g>
         ))}
       </svg>
-      <p className="absolute bottom-4 left-5 text-[11px] uppercase tracking-[0.18em] text-muted">Schematic · not to scale</p>
+      <p className="absolute bottom-4 left-5 text-xs text-muted">Schematic map, not to scale</p>
     </div>
   );
 }

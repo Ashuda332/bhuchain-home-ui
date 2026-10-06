@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import Container from "../components/Container.jsx";
 import GlowCard from "../components/GlowCard.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -32,8 +31,7 @@ export default function Problem() {
       <Container>
         <SectionHeading
           id="problem-title"
-          eyebrow="Fraud prevention"
-          title={<>Buying land shouldn't feel like a <span className="text-gold serif-accent">gamble</span>.</>}
+          title="Buying land shouldn't feel like a gamble."
           intro="Land fraud usually isn't sophisticated. It succeeds because records are hard to check and easy to dispute. Here is what buyers in Odisha are up against."
         />
 
@@ -41,17 +39,13 @@ export default function Problem() {
           {problems.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.1} className="h-full">
               <GlowCard as="article" className="flex h-full flex-col p-7">
-                <motion.span
-                  whileHover={{ rotate: [0, -8, 8, -4, 0] }}
-                  transition={{ duration: 0.5 }}
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-warn-soft text-warn"
-                >
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-warn-soft text-warn">
                   <p.icon className="h-5 w-5" />
-                </motion.span>
+                </span>
                 <h3 className="mt-6 text-xl font-semibold text-ink">{p.title}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.body}</p>
                 <div className="mt-6 border-t border-line pt-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">How BhuChain helps</p>
+                  <p className="text-sm font-semibold text-verify">How BhuChain stops it</p>
                   <p className="mt-1.5 text-sm font-medium text-ink">{p.blocked}</p>
                 </div>
               </GlowCard>

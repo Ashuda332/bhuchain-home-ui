@@ -26,8 +26,7 @@ export default function Features() {
       <Container>
         <SectionHeading
           id="features-title"
-          eyebrow="Key features"
-          title={<>Built for the people who sign, buy and <span className="text-gold serif-accent">approve</span>.</>}
+          title="Built for the people who sign, buy and approve."
           intro="Each feature answers one question a buyer, seller or official should be able to answer in seconds."
         />
 
@@ -41,7 +40,7 @@ export default function Features() {
                 body="One unique ID per parcel: an independent evidence layer linking location, documents and every past owner. Ask for the BHU-ID, and you're looking at the full picture."
               />
               <div aria-hidden="true" className="mt-auto flex flex-col gap-4 pt-10 sm:flex-row sm:items-center">
-                <div className="flex flex-wrap gap-2 font-mono text-xs">
+                <div className="flex flex-wrap gap-2 text-xs">
                   {["Location", "Documents", "Owners", "Transfers"].map((t, i) => (
                     <motion.span
                       key={t}
@@ -102,14 +101,14 @@ export default function Features() {
               <CardHead
                 icon={IconLock}
                 title="Tamper-proof records"
-                body="Entries are cryptographically chained. Editing an old record would break the chain, and everyone would see it."
+                body="Entries are chained by cryptographic hashes. Editing an old record breaks every block after it, so tampering is visible to everyone. Try it in the demo above."
               />
               <div aria-hidden="true" className="mt-auto flex items-center pt-10">
                 {[0, 1, 2, 3].map((i) => (
                   <div key={i} className="flex items-center">
                     <motion.span
                       className="block h-9 w-9 rounded-lg border border-accent/40 bg-accent-soft"
-                      animate={reduce ? undefined : { y: [0, -4, 0], borderColor: ["rgb(217 184 115 / .3)", "rgb(217 184 115 / 1)", "rgb(217 184 115 / .3)"] }}
+                      animate={reduce ? undefined : { y: [0, -4, 0], borderColor: ["rgb(194 158 97 / .3)", "rgb(194 158 97 / 1)", "rgb(194 158 97 / .3)"] }}
                       transition={loop(reduce, { duration: 1.2, delay: i * 0.3, repeatDelay: 1.6 })}
                     />
                     {i < 3 && (

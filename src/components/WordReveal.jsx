@@ -29,7 +29,7 @@ export default function WordReveal({ text, highlight = [], className = "" }) {
 function Word({ children, progress, range, reduce, gold }) {
   const opacity = useTransform(progress, range, [0.14, 1]);
   return (
-    <motion.span style={reduce ? undefined : { opacity }} className={`inline-block pr-[0.28em] ${gold ? "text-gold serif-accent" : ""}`}>
+    <motion.span style={reduce ? undefined : { opacity }} className={`inline-block pr-[0.28em] ${gold ? "text-gold" : ""}`}>
       {children}
     </motion.span>
   );

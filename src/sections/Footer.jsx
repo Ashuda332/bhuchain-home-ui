@@ -37,11 +37,11 @@ export default function Footer() {
 
         {groups.map((g) => (
           <nav key={g.title} aria-label={g.title}>
-            <h2 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sand/60">{g.title}</h2>
+            <h2 className="font-sans text-sm font-semibold text-sand/60">{g.title}</h2>
             <ul className="mt-4 space-y-2.5">
               {g.links.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-sand/85 transition-colors hover:text-[#e9d39a]">
+                  <a href={l.href} className="text-sm text-sand/85 transition-colors hover:text-[#eddeb1]">
                     {l.label}
                   </a>
                 </li>

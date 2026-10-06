@@ -4,57 +4,68 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Design tokens, taken from the BhuChain logo (gold + silver interlocked rings).
- * All brand colours live here as CSS variables so they can be tuned in one place.
- * Tailwind utilities (bg-surface, text-ink, text-accent, ...) are generated from
- * them in the @theme block below.
+ * Design tokens.
+ *  - Gold and silver are sampled from the official logo (public/brand/logo-original.webp):
+ *    gold  #9E7E49 (shadow) · #C29E61 (mid) · #EDDEB1 (highlight)
+ *    silver #4D4B4A (shadow) · #9D9996 (mid) · #DAD2CE (highlight)
+ *  - Midnight navy base: the fintech / blockchain palette from the ui-ux-pro-max skill.
+ *  - "Verified" teal is used only for verified / valid / live states, never as decoration.
+ * Tailwind utilities (bg-surface, text-ink, text-accent, text-verify, ...) are generated
+ * from these in the @theme block below.
  */
 :root {
-  --c-bg: #f8f5ef;          /* ivory */
-  --c-surface: #fffdf9;
-  --c-surface-2: #f1ece2;
-  --c-ink: #17130d;
-  --c-muted: #5f574b;
-  --c-line: #e3dacb;
-  --c-accent: #8a6a2b;      /* deep gold — readable as text on ivory */
+  --c-bg: #f4f5f7;          /* porcelain */
+  --c-surface: #ffffff;
+  --c-surface-2: #eceef2;
+  --c-ink: #0e1526;         /* midnight ink */
+  --c-muted: #4a5468;
+  --c-line: #dde1e8;
+  --c-accent: #87672f;      /* logo gold, darkened for text contrast on porcelain */
   --c-accent-ink: #1a1408;  /* text on gold buttons */
-  --c-accent-soft: #f1e6cc;
-  --c-silver: #77746f;
-  --c-warn: #b4441c;
-  --c-warn-soft: #f8e4da;
-  --c-night: #0c0a07;       /* always-dark bands (CTA, footer) */
-  --c-night-2: #16130e;
-  --c-sand: #f4efe6;        /* text on night */
-  --c-glow: rgb(212 176 106 / 0.28);
+  --c-accent-soft: #f3ead8;
+  --c-silver: #6f6b68;
+  --c-verify: #0c7d6b;
+  --c-verify-soft: #dcf3ee;
+  --c-warn: #b42318;
+  --c-warn-soft: #fde7e4;
+  --c-night: #0a0f1c;       /* always-dark bands (CTA, footer) */
+  --c-night-2: #111829;
+  --c-sand: #eef0f4;        /* text on night */
+  --c-glow: rgb(194 158 97 / 0.30);
 
-  --gold-grad: linear-gradient(110deg, #9c7535 0%, #d9b873 22%, #f5e6bd 38%, #c49a4f 55%, #e9d39a 72%, #a9823f 100%);
-  --silver-grad: linear-gradient(110deg, #6d6b68 0%, #c9c7c3 35%, #f0eeeb 50%, #9a9895 70%, #5c5a58 100%);
-
-  --shadow-soft: 0 1px 2px rgb(23 19 13 / 0.04), 0 10px 30px -14px rgb(23 19 13 / 0.18);
-  --grain-opacity: 0.045;
+  --shadow-soft: 0 1px 2px rgb(14 21 38 / 0.05), 0 12px 32px -16px rgb(14 21 38 / 0.22);
+  --grain-opacity: 0.035;
   color-scheme: light;
 }
 
 .dark {
-  --c-bg: #0a0907;          /* warm black */
-  --c-surface: #12100c;
-  --c-surface-2: #1a1712;
-  --c-ink: #f4efe6;
-  --c-muted: #a69e90;
-  --c-line: #2a251d;
-  --c-accent: #d9b873;      /* bright gold */
+  --c-bg: #0a0f1c;          /* midnight ledger */
+  --c-surface: #0f1626;
+  --c-surface-2: #151e33;
+  --c-ink: #eef0f4;
+  --c-muted: #98a2b6;
+  --c-line: #1f2a42;
+  --c-accent: #caaa75;      /* logo gold */
   --c-accent-ink: #1a1408;
-  --c-accent-soft: #2a2213;
-  --c-silver: #b9b7b3;
-  --c-warn: #f08a5d;
-  --c-warn-soft: #2d1a12;
-  --c-night: #060504;
-  --c-night-2: #12100c;
-  --c-sand: #f4efe6;
-  --c-glow: rgb(217 184 115 / 0.22);
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -20px rgb(0 0 0 / 0.8);
-  --grain-opacity: 0.06;
+  --c-accent-soft: #231f1a;
+  --c-silver: #bbb7b4;      /* logo silver */
+  --c-verify: #3fd0b4;
+  --c-verify-soft: #0f2b2b;
+  --c-warn: #ff7a6b;
+  --c-warn-soft: #2f1518;
+  --c-night: #070b15;
+  --c-night-2: #0f1626;
+  --c-sand: #eef0f4;
+  --c-glow: rgb(194 158 97 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 44px -22px rgb(0 0 0 / 0.9);
+  --grain-opacity: 0.05;
   color-scheme: dark;
+}
+
+:root {
+  /* exact logo gradients (gold follows the logo's letterforms: mostly mid gold, one soft highlight) */
+  --gold-grad: linear-gradient(110deg, #9e7e49 0%, #b8985e 24%, #dcc595 42%, #be9a60 58%, #c4af89 76%, #a68149 100%);
+  --silver-grad: linear-gradient(110deg, #4d4b4a 0%, #9d9996 30%, #dad2ce 48%, #908c89 68%, #666261 100%);
 }
 
 @theme inline {
@@ -73,10 +84,13 @@
   --color-night: var(--c-night);
   --color-night-2: var(--c-night-2);
   --color-sand: var(--c-sand);
+  --color-verify: var(--c-verify);
+  --color-verify-soft: var(--c-verify-soft);
 
-  --font-display: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  /* One family (Outfit, geometric like the logo letters) + a mono used only for real ledger data. */
+  --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --shadow-soft: var(--shadow-soft);
 }
@@ -114,7 +128,8 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.03em;
+    font-weight: 600;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
@@ -146,12 +161,6 @@
   .bg-gold {
     background-image: var(--gold-grad);
     background-size: 200% 100%;
-  }
-  .serif-accent {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.01em;
   }
 
   /* Brand-shape masks cut from the official logo (see src/components/Logo.jsx). */
@@ -190,4 +199,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
