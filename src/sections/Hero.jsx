@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden">
       {/* Soft gradient wash + fine grid. Decorative only. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_65%,transparent)]">
         <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl sm:left-[70%]" />
         <div className="absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-warn/10 blur-3xl" />
         <div

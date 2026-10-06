@@ -70,9 +70,11 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button href="#get-started" className="hidden px-4 py-2.5 md:inline-flex">
-            Request early access
-          </Button>
+          <div className="hidden md:block">
+            <Button href="#get-started" className="px-4 py-2.5">
+              Request early access
+            </Button>
+          </div>
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink md:hidden"
